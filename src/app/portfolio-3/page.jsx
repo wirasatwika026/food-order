@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   FaGithub,
@@ -19,6 +19,7 @@ import {
   FaUserAstronaut,
   FaBook,
   FaAward,
+  FaArrowUp,
 } from "react-icons/fa";
 import {
   SiNextdotjs,
@@ -149,6 +150,27 @@ export default function Portfolio3() {
       }
     };
   }, []);
+
+  // Floating Action Button: Show when scrolled down
+  const [showFab, setShowFab] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 200) {
+        setShowFab(true);
+      } else {
+        setShowFab(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleBackToTop = () => {
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-800 text-white">
@@ -506,6 +528,21 @@ export default function Portfolio3() {
           </motion.button>
         </motion.form>
       </section>
+
+      {/* Floating Action Button for Back to Top */}
+      {showFab && (
+        <motion.button
+          initial={{ opacity: 0, scale: 0.7 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.7 }}
+          transition={{ duration: 0.3 }}
+          onClick={handleBackToTop}
+          aria-label="Back to top"
+          className="fixed z-50 bottom-8 right-8 bg-indigo-500 hover:bg-indigo-600 text-white rounded-full shadow-lg p-4 flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-300"
+        >
+          <FaArrowUp className="text-2xl" />
+        </motion.button>
+      )}
 
       {/* Footer */}
       <footer className="py-8 text-center text-gray-400 text-sm">
