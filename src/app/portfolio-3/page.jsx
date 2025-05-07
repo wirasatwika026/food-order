@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   FaGithub,
@@ -17,6 +17,8 @@ import {
   FaBriefcase,
   FaLightbulb,
   FaUserAstronaut,
+  FaBook,
+  FaAward,
 } from "react-icons/fa";
 import {
   SiNextdotjs,
@@ -26,6 +28,42 @@ import {
   SiMongodb,
   SiExpress,
 } from "react-icons/si";
+
+// New Education Section Data
+const education = [
+  {
+    degree: "B.Sc. in Computer Science",
+    institution: "Tech University",
+    year: "2018 - 2022",
+    icon: FaBook,
+    description: "Graduated with honors, focusing on web development and UI/UX design.",
+  },
+  {
+    degree: "Certified Frontend Developer",
+    institution: "Online Academy",
+    year: "2023",
+    icon: FaAward,
+    description: "Completed a professional certification in modern frontend frameworks.",
+  },
+];
+
+// New Experience Section Data
+const experience = [
+  {
+    role: "Frontend Developer",
+    company: "Creative Web Studio",
+    period: "2022 - Present",
+    icon: FaBriefcase,
+    description: "Building interactive and responsive web applications using React and Next.js.",
+  },
+  {
+    role: "UI/UX Designer",
+    company: "Designify",
+    period: "2021 - 2022",
+    icon: FaPaintBrush,
+    description: "Designed user interfaces and experiences for SaaS products and mobile apps.",
+  },
+];
 
 const projects = [
   {
@@ -90,7 +128,28 @@ const socialLinks = [
   },
 ];
 
+// Smooth scroll handler
+function handleSmoothScroll(e, id) {
+  e.preventDefault();
+  const el = document.getElementById(id);
+  if (el) {
+    el.scrollIntoView({ behavior: "smooth" });
+  }
+}
+
 export default function Portfolio3() {
+  // Add scroll-behavior: smooth to html element for fallback
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      document.documentElement.style.scrollBehavior = "smooth";
+    }
+    return () => {
+      if (typeof window !== "undefined") {
+        document.documentElement.style.scrollBehavior = "";
+      }
+    };
+  }, []);
+
   return (
     <main className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-800 text-white">
       {/* Header */}
@@ -107,13 +166,51 @@ export default function Portfolio3() {
           className="flex items-center gap-4"
         >
           <FaUserAstronaut className="text-4xl text-indigo-400" />
-          <span className="text-2xl font-bold tracking-tight">Alex Starfield</span>
+          <span className="text-2xl font-bold tracking-tight">Wirasatwika</span>
         </motion.div>
         <nav className="flex gap-6 mt-4 md:mt-0">
-          <a href="#about" className="hover:text-indigo-400 transition">About</a>
-          <a href="#skills" className="hover:text-indigo-400 transition">Skills</a>
-          <a href="#projects" className="hover:text-indigo-400 transition">Projects</a>
-          <a href="#contact" className="hover:text-indigo-400 transition">Contact</a>
+          <a
+            href="#about"
+            className="hover:text-indigo-400 transition"
+            onClick={e => handleSmoothScroll(e, "about")}
+          >
+            About
+          </a>
+          <a
+            href="#education"
+            className="hover:text-indigo-400 transition"
+            onClick={e => handleSmoothScroll(e, "education")}
+          >
+            Education
+          </a>
+          <a
+            href="#experience"
+            className="hover:text-indigo-400 transition"
+            onClick={e => handleSmoothScroll(e, "experience")}
+          >
+            Experience
+          </a>
+          <a
+            href="#skills"
+            className="hover:text-indigo-400 transition"
+            onClick={e => handleSmoothScroll(e, "skills")}
+          >
+            Skills
+          </a>
+          <a
+            href="#projects"
+            className="hover:text-indigo-400 transition"
+            onClick={e => handleSmoothScroll(e, "projects")}
+          >
+            Projects
+          </a>
+          <a
+            href="#contact"
+            className="hover:text-indigo-400 transition"
+            onClick={e => handleSmoothScroll(e, "contact")}
+          >
+            Contact
+          </a>
         </nav>
       </motion.header>
 
@@ -127,7 +224,7 @@ export default function Portfolio3() {
           className="flex-1"
         >
           <h1 className="text-4xl md:text-5xl font-extrabold mb-4">
-            Hi, I'm <span className="text-indigo-400">Alex</span> 👋
+            Hi, I'm <span className="text-indigo-400">Wirasatwika</span> 👋
           </h1>
           <p className="text-lg md:text-xl text-gray-300 mb-6">
             Creative full-stack developer passionate about building interactive web experiences and generative art. I love blending code, design, and animation to craft memorable digital products.
@@ -171,6 +268,76 @@ export default function Portfolio3() {
             </div>
           </motion.div>
         </motion.div>
+      </section>
+
+      {/* Education Section */}
+      <section id="education" className="py-16 px-6 md:px-16 bg-gray-900/60">
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-3xl font-bold mb-8 text-center"
+        >
+          Education
+        </motion.h2>
+        <div className="max-w-3xl mx-auto grid gap-8 md:grid-cols-2">
+          {education.map(({ degree, institution, year, icon: Icon, description }) => (
+            <motion.div
+              key={degree + institution}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, type: "spring" }}
+              className="bg-gray-800/80 rounded-lg p-6 flex flex-col gap-2 shadow"
+            >
+              <div className="flex items-center gap-3 mb-2">
+                <Icon className="text-2xl text-indigo-400" />
+                <div>
+                  <div className="font-semibold">{degree}</div>
+                  <div className="text-sm text-gray-400">{institution}</div>
+                </div>
+              </div>
+              <div className="text-xs text-gray-400 mb-1">{year}</div>
+              <div className="text-gray-300 text-sm">{description}</div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Experience Section */}
+      <section id="experience" className="py-16 px-6 md:px-16">
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-3xl font-bold mb-8 text-center"
+        >
+          Experience
+        </motion.h2>
+        <div className="max-w-3xl mx-auto grid gap-8 md:grid-cols-2">
+          {experience.map(({ role, company, period, icon: Icon, description }) => (
+            <motion.div
+              key={role + company}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, type: "spring" }}
+              className="bg-gray-900/80 rounded-lg p-6 flex flex-col gap-2 shadow"
+            >
+              <div className="flex items-center gap-3 mb-2">
+                <Icon className="text-2xl text-indigo-400" />
+                <div>
+                  <div className="font-semibold">{role}</div>
+                  <div className="text-sm text-gray-400">{company}</div>
+                </div>
+              </div>
+              <div className="text-xs text-gray-400 mb-1">{period}</div>
+              <div className="text-gray-300 text-sm">{description}</div>
+            </motion.div>
+          ))}
+        </div>
       </section>
 
       {/* Skills Section */}
@@ -342,7 +509,7 @@ export default function Portfolio3() {
 
       {/* Footer */}
       <footer className="py-8 text-center text-gray-400 text-sm">
-        &copy; {new Date().getFullYear()} Alex Starfield. All rights reserved.
+        &copy; {new Date().getFullYear()} Wirasatwika. All rights reserved.
       </footer>
     </main>
   );
