@@ -12,6 +12,10 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-primary-coffee: #6f4e37;
+  --color-secondary-cream: #fffdd0;
+  --color-accent-latte: #d2b48c;
+  --coffee-dark: #362114;
 }
 
 @media (prefers-color-scheme: dark) {

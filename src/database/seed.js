@@ -1,4 +1,3 @@
-// eslint-env node
 const { faker } = require("@faker-js/faker");
 const { createClient } = require("@supabase/supabase-js");
 
