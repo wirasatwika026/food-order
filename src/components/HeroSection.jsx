@@ -32,7 +32,7 @@ export default function HeroSection() {
         <div className="md:w-1/2 lg:w-2/5 flex justify-center md:justify-end">
           <div className="relative w-full max-w-md h-64 md:h-80 lg:h-96 rounded-lg overflow-hidden shadow-2xl">
             <Image
-              src="/hero-image.jpg" // Replace with your actual image path
+              src="https://supabase.theawe.web.id/storage/v1/object/public/food-app/real_food/pizza_food.png" // Replace with your actual image path
               alt="Delicious food platter"
               fill
               className="object-cover"
