@@ -1,7 +1,8 @@
 import { useFetchAllMenus } from "@/queries/menu-queries";
 import MenuCard from "./MenuCard";
-import MenuCardSkeleton from "./MenuCardSkeleton"; // Import the skeleton component
+import MenuCardSkeleton from "./MenuCardSkeleton";
 import { useState } from "react";
+import ProductDetailModal from "@/components/ProductDetailModal";
 
 const MenuSection = () => {
   const { data: menuData, error, isLoading } = useFetchAllMenus();
