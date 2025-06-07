@@ -4,7 +4,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "supabase.theawe.web.id", // Replace with your image host
+        hostname: "supabase.theawe.web.id",
         port: "",
         pathname: "/**",
       },
