@@ -12,7 +12,7 @@ import { Fragment } from "react";
 import { formatPrice } from "@/utils/formatters";
 
 export default function ProductDetailModal({ menu, onClose }) {
-  const isOutOfStock = menu.stock === 0;
+  const isOutOfStock = menu.stock === undefined || menu.stock === 0;
 
   return (
     <Transition appear show={!!menu} as={Fragment}>
@@ -45,7 +45,7 @@ export default function ProductDetailModal({ menu, onClose }) {
                 <div className="w-full md:w-1/2 h-64 md:h-auto relative">
                   <Image
                     src={menu.image_url || "/default-menu-image.png"}
-                    alt={menu.name || "Menu item image"}
+                    alt={menu.item_name || "Menu item image"}
                     fill
                     className="object-cover md:rounded-l-lg md:rounded-t-none" // Removed rounded-t-lg for full height image on mobile
                     sizes="(max-width: 768px) 100vw, 50vw"
@@ -60,7 +60,7 @@ export default function ProductDetailModal({ menu, onClose }) {
                       id="product-modal-title"
                       className="text-2xl font-bold text-gray-900 dark:text-white"
                     >
-                      {menu.name || "Unnamed Item"}
+                      {menu.item_name || "Unnamed Item"}
                     </DialogTitle>
                     <Button
                       onClick={onClose}
@@ -99,7 +99,7 @@ export default function ProductDetailModal({ menu, onClose }) {
                                       : "bg-blue-600 hover:bg-blue-700 text-white dark:bg-blue-500 dark:hover:bg-blue-600"
                                   }`}
                       disabled={isOutOfStock}
-                      aria-label={`Add ${menu.name || "item"} to cart`}
+                      aria-label={`Add ${menu.item_name || "item"} to cart`}
                     >
                       {isOutOfStock ? "Unavailable" : "Add to Cart"}
                     </Button>

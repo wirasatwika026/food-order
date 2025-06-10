@@ -1,3 +1,4 @@
+"use client";
 import { useFetchAllMenus } from "@/queries/menu-queries";
 import MenuCard from "./MenuCard";
 import MenuCardSkeleton from "./MenuCardSkeleton";
@@ -45,14 +46,14 @@ const MenuSection = () => {
   return (
     <>
       <section id="menu-section" className="py-12">
-        <h1 className="text-3xl font-bold text-center mt-12 mb-8 text-primary">
+        <h1 className="text-3xl font-bold text-center mt-12 mb-8 text-orange-500">
           Our Menu
         </h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto justify-items-center">
           {menuData && menuData.length > 0 ? (
             menuData.map((menu) => (
               <MenuCard
-                key={menu.id}
+                key={menu.item_id}
                 menu={menu}
                 onViewDetails={() => handleOpenModal(menu)}
               />

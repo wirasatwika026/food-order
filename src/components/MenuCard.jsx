@@ -5,14 +5,14 @@ import { Button } from "@headlessui/react";
 export default function MenuCard({ menu, onViewDetails }) {
   if (!menu) return null;
 
-  const isOutOfStock = menu.stock === 0;
+  const isOutOfStock = menu.stock === undefined || menu.stock === 0;
 
   return (
     <div className="flex flex-col bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden w-full max-w-sm transition-all duration-300 hover:shadow-lg group">
       <div className="h-48 relative overflow-hidden">
         <Image
           src={menu.image_url || "/default-menu-image.png"}
-          alt={menu.name || "Menu item image"}
+          alt={menu.item_name || "Menu item image"}
           fill
           className="object-cover transition-transform duration-300 group-hover:scale-105"
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -27,7 +27,7 @@ export default function MenuCard({ menu, onViewDetails }) {
       >
         <div className="flex justify-between items-start mb-2">
           <h3 className="text-lg font-semibold text-gray-800 dark:text-white pr-2">
-            {menu.name || "Unnamed Item"}
+            {menu.item_name || "Unnamed Item"}
           </h3>
           <span className="text-md font-bold text-green-600 dark:text-green-500 whitespace-nowrap">
             {formatPrice(menu.price)}
@@ -54,7 +54,7 @@ export default function MenuCard({ menu, onViewDetails }) {
                             : "bg-blue-600 hover:bg-blue-700 text-white dark:bg-blue-500 dark:hover:bg-blue-600"
                         }`}
             disabled={isOutOfStock}
-            aria-label={`Add ${menu.name || "item"} to cart`}
+            aria-label={`Add ${menu.item_name || "item"} to cart`}
           >
             {isOutOfStock ? "Unavailable" : "Add to Cart"}
           </Button>
