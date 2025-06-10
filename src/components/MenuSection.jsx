@@ -1,14 +1,16 @@
 "use client";
+import ProductDetailModal from "@/components/ProductDetailModal";
+import { useAddToCart } from "@/queries/cart-queries";
 import { useFetchAllMenus } from "@/queries/menu-queries";
+import { useState } from "react";
 import MenuCard from "./MenuCard";
 import MenuCardSkeleton from "./MenuCardSkeleton";
-import { useState } from "react";
-import ProductDetailModal from "@/components/ProductDetailModal";
 
 const MenuSection = () => {
   const { data: menuData, error, isLoading } = useFetchAllMenus();
-
   const [selectedMenuItem, setSelectedMenuItem] = useState(null);
+
+  const { mutate: addToCart } = useAddToCart();
 
   const handleOpenModal = (menuItem) => {
     setSelectedMenuItem(menuItem);
@@ -16,6 +18,10 @@ const MenuSection = () => {
 
   const handleCloseModal = () => {
     setSelectedMenuItem(null);
+  };
+
+  const handleAddToCart = (menuItem) => {
+    addToCart(menuItem);
   };
 
   if (isLoading) {
@@ -56,6 +62,7 @@ const MenuSection = () => {
                 key={menu.item_id}
                 menu={menu}
                 onViewDetails={() => handleOpenModal(menu)}
+                onAddToCart={handleAddToCart}
               />
             ))
           ) : (
@@ -69,6 +76,7 @@ const MenuSection = () => {
         <ProductDetailModal
           menu={selectedMenuItem}
           onClose={handleCloseModal}
+          onAddToCart={handleAddToCart}
         />
       )}
     </>

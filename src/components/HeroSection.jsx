@@ -1,54 +1,43 @@
 "use client";
+
+import { Button } from "@headlessui/react";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 
 export default function HeroSection() {
   return (
-    <section className=" py-16 md:py-24">
-      <div className="container mx-auto px-6 flex flex-col md:flex-row items-center">
-        {/* Left Column: Text */}
+    <section className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white dark:from-gray-700 dark:to-gray-800">
+      <div className="container mx-auto px-6 py-16 md:py-20 flex flex-col md:flex-row items-center">
+        {/* Left Column: Text Content */}
         <div className="md:w-1/2 lg:w-3/5 text-center md:text-left mb-10 md:mb-0 md:pr-10">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 leading-tight ">
-            Fresh Food,
-            <br />
-            <span className="text-orange-500">Quick Delivery</span>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
+            Delicious Food, Delivered to You
           </h1>
-          <p className="text-lg sm:text-xl mb-8 ">
-            Enjoy chef-crafted meals delivered to your doorstep in minutes.
-            Fresh ingredients, authentic taste.
+          <p className="text-lg sm:text-xl lg:text-2xl mb-8">
+            Order your favorite meals from our wide selection and enjoy a
+            hassle-free dining experience.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-            <Button
-              size="lg"
-              className="bg-orange-500 hover:bg-orange-600 text-white"
-              onClick={() =>
-                document
-                  .getElementById("menu-section")
-                  ?.scrollIntoView({ behavior: "smooth" })
-              }
-            >
-              Browse Menu
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-orange-500 text-orange-500 hover:bg-orange-50"
-            >
-              How It Works
-            </Button>
-          </div>
+          <Button
+            className="bg-white text-indigo-600 font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-gray-100 transition duration-300 dark:bg-yellow-400 dark:text-gray-900 dark:hover:bg-yellow-300 text-lg cursor-pointer"
+            onClick={() =>
+              document
+                .getElementById("menu-section")
+                ?.scrollIntoView({ behavior: "smooth" })
+            }
+          >
+            View Our Menu
+          </Button>
         </div>
 
         {/* Right Column: Image */}
         <div className="md:w-1/2 lg:w-2/5 flex justify-center md:justify-end">
-          <div className="relative w-full max-w-lg h-80 lg:h-96 rounded-2xl overflow-hidden">
+          <div className="relative w-full max-w-md h-64 md:h-80 lg:h-96 rounded-lg overflow-hidden shadow-2xl">
             <Image
               src="https://supabase.theawe.web.id/storage/v1/object/public/food-app/real_food/pizza_food.png"
               alt="Delicious food platter"
               fill
               className="object-cover"
-              sizes="(max-width: 768px) 100vw, 50vw"
-              priority
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              priority // Good to add for LCP images
             />
           </div>
         </div>
