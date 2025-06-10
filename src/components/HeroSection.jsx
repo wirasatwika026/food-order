@@ -17,7 +17,7 @@ export default function HeroSection() {
             hassle-free dining experience.
           </p>
           <Button
-            className="bg-white text-indigo-600 font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-gray-100 transition duration-300 dark:bg-yellow-400 dark:text-gray-900 dark:hover:bg-yellow-300 text-lg"
+            className="bg-white text-indigo-600 font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-gray-100 transition duration-300 dark:bg-yellow-400 dark:text-gray-900 dark:hover:bg-yellow-300 text-lg cursor-pointer"
             onClick={() =>
               document
                 .getElementById("menu-section")

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchAllMenus } from "@/services/menu-services";
+import { fetchAllMenus } from "@/services/menu-service";
 
 export const useFetchAllMenus = () => {
   return useQuery({

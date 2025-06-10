@@ -11,7 +11,7 @@ import {
 import { Fragment } from "react";
 import { formatPrice } from "@/utils/formatters";
 
-export default function ProductDetailModal({ menu, onClose }) {
+export default function ProductDetailModal({ menu, onClose, onAddToCart }) {
   const isOutOfStock = menu.stock === 0;
 
   return (
@@ -92,7 +92,7 @@ export default function ProductDetailModal({ menu, onClose }) {
                     </div>
 
                     <Button
-                      className={`w-full px-4 py-2.5 rounded-md font-semibold text-sm transition-colors duration-200 
+                      className={`w-full px-4 py-2.5 rounded-md font-semibold text-sm transition-colors duration-200 cursor-pointer
                                   ${
                                     isOutOfStock
                                       ? "bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed"
@@ -100,6 +100,9 @@ export default function ProductDetailModal({ menu, onClose }) {
                                   }`}
                       disabled={isOutOfStock}
                       aria-label={`Add ${menu.name || "item"} to cart`}
+                      onClick={() =>
+                        !isOutOfStock && onAddToCart && onAddToCart(menu)
+                      }
                     >
                       {isOutOfStock ? "Unavailable" : "Add to Cart"}
                     </Button>
