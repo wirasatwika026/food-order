@@ -45,7 +45,7 @@ export default function ProductDetailModal({ menu, onClose, onAddToCart }) {
                 <div className="w-full md:w-1/2 h-64 md:h-auto relative">
                   <Image
                     src={menu.image_url || "/default-menu-image.png"}
-                    alt={menu.name || "Menu item image"}
+                    alt={menu.item_name || "Menu item image"}
                     fill
                     className="object-cover md:rounded-l-lg md:rounded-t-none" // Removed rounded-t-lg for full height image on mobile
                     sizes="(max-width: 768px) 100vw, 50vw"
@@ -60,7 +60,7 @@ export default function ProductDetailModal({ menu, onClose, onAddToCart }) {
                       id="product-modal-title"
                       className="text-2xl font-bold text-gray-900 dark:text-white"
                     >
-                      {menu.name || "Unnamed Item"}
+                      {menu.item_name || "Unnamed Item"}
                     </DialogTitle>
                     <Button
                       onClick={onClose}
