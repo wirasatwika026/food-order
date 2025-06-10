@@ -4,7 +4,7 @@ import { useAddToCart } from "@/queries/cart-queries";
 import { useFetchAllMenus } from "@/queries/menu-queries";
 import { useState } from "react";
 import MenuCard from "./MenuCard";
-import MenuCardSkeleton from "./MenuCardSkeleton";
+import MenuCardSkeleton from "./skeletons/MenuCardSkeleton";
 
 const MenuSection = () => {
   const { data: menuData, error, isLoading } = useFetchAllMenus();

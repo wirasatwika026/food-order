@@ -21,7 +21,7 @@ export const useAddToCart = () => {
   return useMutation({
     mutationFn: (itemData) => cartService.addToCart(itemData),
     onSuccess: (data, variables, context) => {
-      showToast(`${variables.name} added to cart!`, {
+      showToast(`${variables.item_name} added to cart!`, {
         type: "success",
         duration: 3000,
       });

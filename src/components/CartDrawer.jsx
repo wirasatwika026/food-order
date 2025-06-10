@@ -122,7 +122,7 @@ export default function CartDrawer({ open, setOpen }) {
                             )}
                           <ul className="-my-6 divide-y divide-gray-200 dark:divide-gray-700">
                             {cartItems?.map((item) => (
-                              <li key={item.id} className="flex py-6">
+                              <li key={item.item_id} className="flex py-6">
                                 <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200 dark:border-gray-700">
                                   {/* Assuming item might have an image_url, otherwise a placeholder */}
                                   <Image
@@ -130,7 +130,7 @@ export default function CartDrawer({ open, setOpen }) {
                                       item.image_url ||
                                       "/default-menu-image.png"
                                     }
-                                    alt={item.name || "Product image"}
+                                    alt={item.item_name || "Product image"}
                                     width={96}
                                     height={96}
                                     className="h-full w-full object-cover object-center"
@@ -140,7 +140,7 @@ export default function CartDrawer({ open, setOpen }) {
                                 <div className="ml-4 flex flex-1 flex-col">
                                   <div>
                                     <div className="flex justify-between text-base font-medium text-gray-900 dark:text-white">
-                                      <h3>{item.name}</h3>
+                                      <h3>{item.item_name}</h3>
                                       <p className="ml-4">
                                         {formatPrice(
                                           item.price * (item.quantity ?? 1)
@@ -162,7 +162,7 @@ export default function CartDrawer({ open, setOpen }) {
                                         onClick={() =>
                                           openConfirmationModal({
                                             id: item.id,
-                                            name: item.name,
+                                            name: item.item_name,
                                           })
                                         }
                                         disabled={

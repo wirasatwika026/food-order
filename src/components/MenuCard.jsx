@@ -27,7 +27,7 @@ export default function MenuCard({ menu, onViewDetails, onAddToCart }) {
         <div className="p-4 flex flex-col flex-grow" tabIndex={0}>
           <div className="flex justify-between items-start mb-2">
             <h3 className="text-lg font-semibold text-gray-800 dark:text-white pr-2">
-              {menu.name || "Unnamed Item"}
+              {menu.item_name || "Unnamed Item"}
             </h3>
             <span className="text-md font-bold text-green-600 dark:text-green-500 whitespace-nowrap">
               {formatPrice(menu.price)}
