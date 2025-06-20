@@ -63,7 +63,6 @@ export default function CreateMenuModal({ show, onClose }) {
   });
 
   function onSubmit(data) {
-    console.log("🚀 ~ onSubmit ~ data:", data);
     // Handle submission, e.g., API call to save menu item
     // You could add createMenu function here
     // After successful submission, close the modal
