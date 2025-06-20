@@ -1,3 +1,4 @@
+"use client";
 import CartDrawer from "@/components/CartDrawer"; // Adjust path if needed
 import { useFetchCartFromLocalStorage } from "@/queries/cart-queries";
 import { Button } from "@headlessui/react";
@@ -12,7 +13,7 @@ export default function Header() {
     cartItems?.reduce((sum, item) => sum + item.quantity, 0) || 0;
 
   return (
-    <header className="bg-white dark:bg-gray-900 shadow-md p-4">
+    <header className="bg-white dark:bg-gray-900/80 shadow-md p-4 sticky top-0 z-50 backdrop-blur-md">
       <div className="container mx-auto flex justify-between items-center">
         <h1 className="text-xl font-bold text-gray-800 dark:text-white">
           Food App

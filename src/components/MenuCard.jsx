@@ -50,16 +50,11 @@ export default function MenuCard({ menu, onViewDetails, onAddToCart }) {
         </span>
         <Button
           className={`px-3 py-1.5 rounded-md font-medium text-xs transition-colors duration-200 cursor-pointer 
-                        ${
-                          isOutOfStock
-                            ? "bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed"
-                            : "bg-blue-600 hover:bg-blue-700 text-white dark:bg-blue-500 dark:hover:bg-blue-600"
-                        }`}
-          disabled={isOutOfStock}
+                        bg-blue-600 hover:bg-blue-700 text-white dark:bg-blue-500 dark:hover:bg-blue-600`}
           aria-label={`Add ${menu.name || "item"} to cart`}
-          onClick={() => !isOutOfStock && onAddToCart && onAddToCart(menu)}
+          onClick={onViewDetails}
         >
-          {isOutOfStock ? "Unavailable" : "Add to Cart"}
+          Detail
         </Button>
       </div>
     </div>

@@ -1,5 +1,11 @@
+"use client";
 import Image from "next/image";
-import { XMarkIcon } from "@heroicons/react/24/outline"; // For a close icon
+import {
+  MinusIcon,
+  PlusCircleIcon,
+  PlusIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline"; // For a close icon
 import {
   Button,
   Dialog,
@@ -8,11 +14,54 @@ import {
   Transition,
   TransitionChild,
 } from "@headlessui/react";
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { formatPrice } from "@/utils/formatters";
+import { Input } from "@/components/ui/input";
+import {
+  useFetchCartById,
+  useFetchCartFromLocalStorage,
+} from "@/queries/cart-queries";
 
 export default function ProductDetailModal({ menu, onClose, onAddToCart }) {
+  const { data: cartItem } = useFetchCartById(menu?.id);
+  const [quantity, setQuantity] = useState(0);
   const isOutOfStock = menu.stock === 0;
+
+  useEffect(() => {
+    if (menu) {
+      setQuantity(cartItem?.quantity ?? 0);
+    }
+  }, [menu, cartItem]);
+
+  const handleQuantityChange = (value) => {
+    if (isOutOfStock) return; // Prevent changing quantity if out of stock
+    const newQuantity = value.target.value;
+    if (newQuantity < 0) {
+      setQuantity(0); // Prevent negative quantity
+      return;
+    }
+    if (newQuantity > menu.stock) {
+      setQuantity(menu.stock); // Prevent exceeding stock
+      return;
+    }
+    setQuantity(newQuantity);
+  };
+
+  const handleIncrement = () => {
+    if (isOutOfStock) return; // Prevent incrementing if out of stock
+    setQuantity((prev) => {
+      const newQuantity = prev + 1;
+      return newQuantity > menu.stock ? menu.stock : newQuantity; // Prevent exceeding stock
+    });
+  };
+
+  const handleDecrement = () => {
+    if (isOutOfStock) return; // Prevent decrementing if out of stock
+    setQuantity((prev) => {
+      const newQuantity = prev - 1;
+      return newQuantity < 0 ? 0 : newQuantity; // Prevent going below zero
+    });
+  };
 
   return (
     <Transition appear show={!!menu} as={Fragment}>
@@ -76,6 +125,35 @@ export default function ProductDetailModal({ menu, onClose, onAddToCart }) {
                   </p>
 
                   <div className="mt-auto">
+                    <div className="flex justify-between items-center mb-2 gap-2">
+                      <h3>Quantity</h3>
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={handleDecrement}
+                          className="items-center  placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex h-9 min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer"
+                          disabled={isOutOfStock || quantity <= 0}
+                        >
+                          <MinusIcon className="w-5 h-5" />
+                        </button>
+                        <Input
+                          type={"number"}
+                          placeholder="Quantity"
+                          className={
+                            "w-20 text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                          }
+                          value={quantity}
+                          onChange={handleQuantityChange}
+                        />
+                        <button
+                          onClick={handleIncrement}
+                          className="items-center  placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex h-9 min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none  disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer "
+                          disabled={isOutOfStock || quantity >= menu.stock}
+                        >
+                          <PlusIcon className="w-5 h-5" />
+                        </button>
+                      </div>
+                    </div>
+
                     <div className="flex justify-between items-center mb-4">
                       <span className="text-xl font-bold text-green-600 dark:text-green-500">
                         {formatPrice(menu.price)}
@@ -97,11 +175,14 @@ export default function ProductDetailModal({ menu, onClose, onAddToCart }) {
                                     isOutOfStock
                                       ? "bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed"
                                       : "bg-blue-600 hover:bg-blue-700 text-white dark:bg-blue-500 dark:hover:bg-blue-600"
-                                  }`}
-                      disabled={isOutOfStock}
+                                  }
+                                      disabled:opacity-50 disabled:cursor-not-allowed`}
+                      disabled={isOutOfStock || quantity <= 0}
                       aria-label={`Add ${menu.name || "item"} to cart`}
                       onClick={() =>
-                        !isOutOfStock && onAddToCart && onAddToCart(menu)
+                        !isOutOfStock &&
+                        onAddToCart &&
+                        onAddToCart({ ...menu, quantity })
                       }
                     >
                       {isOutOfStock ? "Unavailable" : "Add to Cart"}

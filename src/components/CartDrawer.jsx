@@ -16,16 +16,13 @@ import { TrashIcon } from "@heroicons/react/24/outline";
 import { formatPrice } from "@/utils/formatters";
 import Image from "next/image";
 import ConfirmationModal from "./ConfirmationModal";
-
-/* TODO: implement with quantity */
+import Link from "next/link";
 
 export default function CartDrawer({ open, setOpen }) {
   const { data: cartItems, isLoading, error } = useFetchCartFromLocalStorage();
   const { mutate: removeItem, isPending: isRemovingItem } = useRemoveFromCart();
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [itemToRemove, setItemToRemove] = useState(null);
-  console.log("🚀 ~ CartDrawer ~ itemToRemove:", itemToRemove);
-
   const subtotal = useMemo(() => {
     return (
       cartItems?.reduce(
@@ -88,10 +85,10 @@ export default function CartDrawer({ open, setOpen }) {
                         <DialogTitle className="text-lg font-medium text-gray-900 dark:text-white">
                           Shopping cart
                         </DialogTitle>
-                        <div className="ml-3 flex h-7 items-center">
+                        <div className="ml-3 flex h-7 items-center ">
                           <button
                             type="button"
-                            className="relative -m-2 p-2 text-gray-400 hover:text-gray-500 dark:text-gray-300 dark:hover:text-gray-100"
+                            className="relative -m-2 p-2 text-gray-400 hover:text-gray-500 dark:text-gray-300 dark:hover:text-gray-100 cursor-pointer"
                             onClick={() => setOpen(false)}
                           >
                             <span className="absolute -inset-0.5" />
@@ -161,17 +158,17 @@ export default function CartDrawer({ open, setOpen }) {
                                         className="cursor-pointer text-red-600 hover:text-red-500 dark:text-red-400 dark:hover:text-red-300 p-1 -m-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
                                         onClick={() =>
                                           openConfirmationModal({
-                                            id: item.id,
+                                            id: item.item_id,
                                             name: item.item_name,
                                           })
                                         }
                                         disabled={
                                           isRemovingItem &&
-                                          item.id === itemToRemove?.id // Check against item being confirmed for removal
+                                          item.item_id === itemToRemove?.id // Check against item being confirmed for removal
                                         }
                                       >
                                         {isRemovingItem &&
-                                        item.id === itemToRemove?.id ? (
+                                        item.item_id === itemToRemove?.id ? (
                                           "Removing..."
                                         ) : (
                                           <TrashIcon className="h-6 w-6" />
@@ -197,12 +194,12 @@ export default function CartDrawer({ open, setOpen }) {
                           Shipping and taxes calculated at checkout.
                         </p>
                         <div className="mt-6">
-                          <Button
-                            href="#"
-                            className="w-full flex items-center justify-center rounded-md border border-transparent bg-blue-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600"
+                          <Link
+                            href="/checkout"
+                            className="w-full flex items-center justify-center rounded-md border border-transparent bg-blue-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 cursor-pointer"
                           >
                             Checkout
-                          </Button>
+                          </Link>
                         </div>
                       </div>
                     )}
